@@ -19,8 +19,14 @@ object GeoLocationManager {
         return geoLocationLiveData
     }
 
+    /**
+     * Based on the geolocation state, will take action over the logic and also the geolocation color
+     */
     private fun setGeoLocationLiveData(geoLocationState: String) {
+
         when (geoLocationState) {
+
+            // geolocation is turned ON
             GeoLocation.GEO_LOCATION_ON -> {
                 updateGeoLocation(
                     true,
@@ -28,6 +34,8 @@ object GeoLocationManager {
                     R.color.geoLocationON
                 )
             }
+
+            // geolocation is turned OFF
             GeoLocation.GEO_LOCATION_OFF -> {
                 updateGeoLocation(
                     false,
@@ -35,6 +43,8 @@ object GeoLocationManager {
                     R.color.geoLocationOFF
                 )
             }
+
+            // geolocation is ON but not following
             GeoLocation.GEO_LOCATION_DOES_NOT_FOLLOW -> {
                 updateGeoLocation(
                     true,
@@ -42,6 +52,8 @@ object GeoLocationManager {
                     R.color.geoLocationDoesNotFollow
                 )
             }
+
+            // geolocation is ON but unable to receive the position updates
             GeoLocation.GEO_LOCATION_POSITION_LOST -> {
                 updateGeoLocation(
                     true,
@@ -54,6 +66,9 @@ object GeoLocationManager {
         geoLocationLiveData.value = geoLocation
     }
 
+    /**
+     * With respect to the geolocation state, we modify the geolocation properties
+     */
     private fun updateGeoLocation(
         isEnabled: Boolean, currentState: String, drawableColor: Int,
         previousState: String = GeoLocation.GEO_LOCATION_OFF
