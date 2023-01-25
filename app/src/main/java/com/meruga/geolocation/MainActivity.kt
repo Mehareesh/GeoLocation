@@ -16,18 +16,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        // register thr broadcast for GeoLocationBroadcastReceiver
         registerReceiver(
             geoLocationReceiver,
             IntentFilter("android.location.PROVIDERS_CHANGED")
         )
     }
 
+    /**
+     * From UI user will click the button to turn the GeoLocation ON
+     */
     fun geoLocationON() {
         GeoLocationBroadcastReceiver.isFirstResponse = false
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        // unregister thr broadcast for GeoLocationBroadcastReceiver
         unregisterReceiver(geoLocationReceiver)
     }
 }
